@@ -1,0 +1,801 @@
+# strong-parents
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Strong Parents, Extraordinary Kids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #2a1a4a;
+    color: #ffffff;
+    font-family: Georgia, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .page {
+    background: #1f1338;
+    border: 2px solid #F4C542;
+    max-width: 560px;
+    width: 100%;
+    padding: 40px 32px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(90, 50, 180, 0.4);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .hidden { display: none; }
+  .kicker {
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #7fc4ff;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .page-label {
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #F4C542;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  h1 {
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 26px;
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+  .quote-box {
+    border-left: 3px solid #7fc4ff;
+    padding-left: 16px;
+    margin-bottom: 18px;
+    font-style: italic;
+    color: #d8cdf0;
+    font-size: 14px;
+  }
+  .section-label {
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #F4C542;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  p { font-size: 15px; line-height: 1.7; color: #ece6f7; margin-bottom: 10px; }
+  ul.plain-list { list-style: none; margin-top: 4px; }
+  ul.plain-list li {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #ece6f7;
+    margin-bottom: 9px;
+    padding-left: 18px;
+    position: relative;
+  }
+  ul.plain-list li::before {
+    content: "•";
+    color: #7fc4ff;
+    position: absolute;
+    left: 0;
+  }
+  .exercise-box {
+    background: #150c29;
+    border: 1px solid #4a3878;
+    padding: 16px;
+    margin-top: 8px;
+  }
+  .exercise-title { font-weight: bold; color: #F4C542; font-size: 13.5px; margin-bottom: 6px; }
+  .exercise-text { font-size: 14px; line-height: 1.6; color: #ece6f7; }
+  .affirmation-box {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #3a2b5c;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #F4C542;
+    text-align: center;
+  }
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid #3a2b5c;
+  }
+  .nav-btn {
+    font-family: 'Anton', Impact, sans-serif;
+    letter-spacing: 2px;
+    font-size: 12px;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid #F4C542;
+    padding: 9px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .progress { font-family: 'Anton', Impact, sans-serif; font-size: 11px; color: #8a7ab0; }
+  .footer-tag {
+    text-align: center;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #5c4b8a;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+  .jump-select {
+    width: 100%;
+    margin-top: 14px;
+    padding: 8px;
+    background: #150c29;
+    color: #ece6f7;
+    border: 1px solid #3a2b5c;
+    font-family: Georgia, serif;
+    font-size: 13px;
+  }
+  /* Cover */
+  .cover { text-align: center; padding: 16px 6px 6px; }
+  .cover-eyebrow { font-family: 'Anton', Impact, sans-serif; font-size: 11px; letter-spacing: 4px; color: #7fc4ff; text-transform: uppercase; margin-bottom: 16px; }
+  .cover-title { font-family: 'Anton', Impact, sans-serif; font-size: 34px; line-height: 1.15; letter-spacing: 1px; color: #ffffff; }
+  .cover-title span { color: #F4C542; }
+  .cover-subtitle { font-family: Georgia, serif; font-size: 14px; color: #d8cdf0; margin-top: 14px; line-height: 1.6; }
+  .cover-tagline { font-family: Georgia, serif; font-style: italic; font-size: 12.5px; color: #7fc4ff; margin-top: 18px; line-height: 1.6; }
+  .cover-features { margin-top: 22px; padding-top: 16px; border-top: 1px solid #3a2b5c; font-family: 'Anton', Impact, sans-serif; font-size: 9.5px; letter-spacing: 2px; color: #8a7ab0; text-transform: uppercase; line-height: 2; }
+  .cover-begin-btn { font-family: 'Anton', Impact, sans-serif; letter-spacing: 3px; font-size: 13px; color: #1f1338; background: #F4C542; border: none; padding: 13px 32px; margin-top: 24px; cursor: pointer; text-transform: uppercase; }
+  .cover-author { margin-top: 24px; font-family: 'Anton', Impact, sans-serif; font-size: 9px; letter-spacing: 3px; color: #5c4b8a; text-transform: uppercase; }
+  /* Journal */
+  .j-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+  .j-field label { font-size: 11px; letter-spacing: 1px; color: #7fc4ff; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .j-field input[type=text], .j-field input[type=date] {
+    background: #150c29; border: 1px solid #3a2b5c; color: #ece6f7; padding: 7px 9px; font-family: Georgia, serif; font-size: 13px; width: 100%;
+  }
+  .emotion-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .emotion-chip {
+    border: 1px solid #4a3878; padding: 6px 12px; font-size: 12.5px; color: #d8cdf0; cursor: pointer; background: #150c29;
+  }
+  .emotion-chip.selected { border-color: #F4C542; color: #F4C542; }
+  textarea.j-textarea {
+    width: 100%; background: #150c29; border: 1px solid #3a2b5c; color: #ece6f7; padding: 10px; font-family: Georgia, serif; font-size: 13.5px; min-height: 70px; resize: vertical;
+  }
+  .gratitude-input { width: 100%; background: #150c29; border: 1px solid #3a2b5c; color: #ece6f7; padding: 7px 9px; font-family: Georgia, serif; font-size: 13px; margin-bottom: 8px; }
+  .checkbox-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #ece6f7; }
+  .checkbox-item input { accent-color: #F4C542; }
+  .break-check { display: flex; gap: 24px; margin-top: 8px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page" id="coverPage">
+  <div class="cover">
+    <div class="cover-eyebrow">A Book of Love, Togetherness &amp; Putting Your Child First</div>
+    <div class="cover-title">STRONG PARENTS<br><span>EXTRAORDINARY KIDS</span></div>
+    <div class="cover-subtitle">Supporting Parents of Children with Autism</div>
+    <div class="cover-tagline">"You are not alone. You are not failing.<br>You are enough."</div>
+    <div class="cover-features">Mental Health Tools · Exercises<br>Emotional Charts · Counseling Resources<br>40-Day Guided Journal</div>
+    <button class="cover-begin-btn" id="beginBtn">Begin →</button>
+    <div class="cover-author">Dana Scott · Mental Health Advocate</div>
+  </div>
+</div>
+
+<!-- CHAPTER / FRONT MATTER VIEW -->
+<div class="page hidden" id="chapterPage">
+  <div class="page-label" id="chapterPageLabel"></div>
+  <div class="kicker" id="chapterKicker"></div>
+  <h1 id="chapterTitle"></h1>
+  <div class="quote-box" id="chapterQuote"></div>
+  <div id="chapterParagraphs"></div>
+  <div class="section-label hidden" id="chapterListLabel"></div>
+  <ul class="plain-list" id="chapterList"></ul>
+  <div class="exercise-box hidden" id="chapterExerciseBox">
+    <div class="exercise-title" id="chapterExerciseTitle"></div>
+    <div class="exercise-text" id="chapterExerciseText"></div>
+  </div>
+  <div class="affirmation-box hidden" id="chapterAffirmation"></div>
+
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn">Previous</button>
+    <span class="progress" id="progressLabel"></span>
+    <button class="nav-btn" id="nextBtn">Next →</button>
+  </div>
+  <select class="jump-select" id="jumpSelect"></select>
+  <div class="footer-tag">Dana Scott · Strong Parents, Extraordinary Kids</div>
+</div>
+
+<!-- JOURNAL DAY VIEW -->
+<div class="page hidden" id="journalPage">
+  <div class="page-label" id="journalDayLabel"></div>
+  <div class="quote-box" id="journalQuote"></div>
+
+  <div class="j-row">
+    <div class="j-field" style="flex:1"><label>Date</label><input type="text" placeholder="mm/dd/yyyy"></div>
+    <div class="j-field" style="width:90px"><label>Mood (1-10)</label><input type="text"></div>
+  </div>
+
+  <div class="section-label">Circle Your Emotion</div>
+  <div class="emotion-row" id="emotionRow"></div>
+
+  <div class="section-label" id="journalPromptLabel"></div>
+  <textarea class="j-textarea"></textarea>
+
+  <div class="section-label" id="gratitudeLabel"></div>
+  <input class="gratitude-input" type="text" placeholder="1.">
+  <input class="gratitude-input" type="text" placeholder="2.">
+  <input class="gratitude-input" type="text" placeholder="3.">
+
+  <div class="section-label">Self-Care Check-In</div>
+  <div class="checkbox-grid">
+    <label class="checkbox-item"><input type="checkbox"> Slept well</label>
+    <label class="checkbox-item"><input type="checkbox"> Ate well</label>
+    <label class="checkbox-item"><input type="checkbox"> Moved my body</label>
+    <label class="checkbox-item"><input type="checkbox"> Connected with someone</label>
+    <label class="checkbox-item"><input type="checkbox"> Took a break</label>
+    <label class="checkbox-item"><input type="checkbox"> Did something for me</label>
+  </div>
+
+  <div class="section-label">Evening Reflection</div>
+  <textarea class="j-textarea" placeholder="What went well? What would I do differently?"></textarea>
+
+  <div class="section-label">Break Check</div>
+  <div class="break-check">
+    <label class="checkbox-item"><input type="checkbox"> I needed a break</label>
+    <label class="checkbox-item"><input type="checkbox"> I took one</label>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn" id="jPrevBtn">Previous</button>
+    <span class="progress" id="jProgressLabel"></span>
+    <button class="nav-btn" id="jNextBtn">Next →</button>
+  </div>
+  <select class="jump-select" id="jJumpSelect"></select>
+  <div class="footer-tag">Dana Scott · 40-Day Guided Journal</div>
+</div>
+
+<script>
+// ---------- FRONT MATTER + CHAPTERS ----------
+const chapters = [
+{
+  pageLabel: "Front Matter",
+  title: "Important Disclaimer",
+  quote: "",
+  paragraphs: [
+    "This book is written from lived experience. Dana Scott does not hold a degree in psychology, therapy, or counseling and is not a licensed therapist or medical professional.",
+    "What Dana brings is years of being in the room — in classrooms alongside children with autism, in hallways alongside parents, and in the quiet moments where the truth about what families go through becomes impossible to ignore.",
+    "This book is not a substitute for professional counseling or medical advice. If you or your child are in crisis, please use the resources below."
+  ],
+  listLabel: "Crisis & Support Resources",
+  list: [
+    "988 Suicide & Crisis Lifeline — call or text 988 (24/7)",
+    "Crisis Text Line — text HOME to 741741",
+    "SAMHSA Helpline — 1-800-662-4357",
+    "NAMI Helpline — 1-800-950-6264",
+    "Autism Society Helpline — 1-800-328-8476",
+    "National Parent Helpline — 1-855-427-2736"
+  ],
+  affirmation: "Everything here is offered with love — from one heart to another."
+},
+{
+  pageLabel: "Front Matter",
+  title: "About the Author",
+  quote: "\u201CI do not have a wall of degrees. I have a heart full of experience and a room full of parents who finally felt seen. That is my qualification. That is enough.\u201D",
+  paragraphs: [
+    "Dana Scott is a mental health advocate who has spent years in the places most people overlook — the classrooms, the hallways, the parking lots after school — watching, listening, and learning what families truly go through.",
+    "Dana does not have a degree in psychology and is not a licensed therapist. What Dana has is something no diploma can give: years of being in the room.",
+    "Dana watched mothers sit silently in IEP meetings, overwhelmed by jargon. Dana watched fathers stand in hallways carrying weight they never talked about. That silence became Dana's calling — to build tools from lived experience and hand them over with love."
+  ],
+  affirmation: "For the parents sitting in the back of the classroom who never said a word — I see you. This book is for you."
+},
+{
+  pageLabel: "Chapter 1",
+  kicker: "Part One — Understanding the Journey",
+  title: "The Day Everything Changed",
+  quote: "The diagnosis does not change who your child/children are. It changes how you understand them. And that understanding is a gift, even when it does not feel like one.",
+  paragraphs: [
+    "There is a moment every parent of a child with autism can point to — the moment the world shifted. Wherever that moment found you, it came with a flood of emotions: fear, confusion, grief for the life you imagined, guilt for feeling that grief, and a love so fierce it physically hurt.",
+    "The day everything changed was not the day of the diagnosis. It was the day you realized that to be the parent your child needs, you also have to take care of yourself.",
+    "Nobody tells you that you will become invisible — that the system will focus entirely on your child while you disappear behind a wall of appointments and paperwork. Nobody tells you about the loneliness, or about the fierce, world-altering love that makes every hard day worth it."
+  ],
+  listLabel: "What Parents Often Feel But Rarely Say",
+  list: [
+    "Loneliness — feeling like nobody truly understands your daily reality",
+    "Ambiguous grief — mourning a future you imagined while loving the child in front of you",
+    "Hypervigilance — always scanning for triggers or safety concerns",
+    "Identity loss — feeling like you've disappeared into the role of caregiver",
+    "Guilt — for wanting a break, for feeling frustrated, for not being enough",
+    "Fierce protectiveness — a love so deep it feels like a physical force"
+  ],
+  exerciseTitle: "Where Am I Right Now? (Self-Assessment)",
+  exerciseText: "Find a quiet moment and take three slow breaths. Rate yourself 1–10 on physical energy, emotional energy, mental clarity, and connection to joy — no judgment, just notice. Write one word for how you feel today, and one word for where you want to be. The distance between those two words is your journey.",
+  affirmation: "I am not defined by a diagnosis. I am defined by my love. And my love is more than enough."
+},
+{
+  pageLabel: "Chapter 2",
+  title: "The Hidden Toll on Parents",
+  quote: "Caring for someone else does not mean you stop existing. Your needs are not inconveniences — they are necessities.",
+  paragraphs: [
+    "Let's talk about what this journey does to you — not your child, not your family as a unit, you. The person who carries a mental load that would stagger anyone, and still gets up every morning and does it all again out of pure love."
+  ],
+  listLabel: "The Five Faces of Parental Burnout",
+  list: [
+    "Physical Exhaustion — chronic stress in your shoulders, jaw, and back; sleep that never feels restorative",
+    "Emotional Numbness — grey flatness some days; your brain protecting you from overload",
+    "Cognitive Fog — forgetting appointments, losing keys, no bandwidth left for the ordinary",
+    "Social Withdrawal — declining invitations because explaining your life takes energy you don't have",
+    "Loss of Identity — becoming only a caregiver, when that role is sacred but not all you are"
+  ],
+  exerciseTitle: "Permission Slip",
+  exerciseText: "Give yourself full permission to: feel tired without guilt, ask for help without feeling weak, cry without feeling broken, take a break without feeling selfish, grieve without feeling ungrateful, be imperfect and still be an amazing parent, and put your child first AND still take care of yourself.",
+  affirmation: "I am allowed to be more than just strong. I am allowed to be tired. I am allowed to need help."
+},
+{
+  pageLabel: "Chapter 3",
+  title: "Your Emotional Landscape",
+  quote: "You cannot navigate a storm if you do not know which way the wind is blowing. Name the feeling. That is where love begins to heal.",
+  paragraphs: [
+    "Emotional literacy — being able to identify, name, and understand feelings in real time — is one of the most powerful gifts you can give yourself and your family. When the whole family speaks the same emotional language, connection deepens and meltdowns become easier to navigate together."
+  ],
+  listLabel: "The Emotional Thermometer",
+  list: [
+    "GREEN (1–3) — Calm, safe, in control: enjoy, connect, play",
+    "YELLOW (4–5) — Uneasy, distracted, tense: breathing, movement, talk",
+    "ORANGE (6–7) — Anxious, irritable: sensory tools, take a break",
+    "RED (8–10) — Overwhelmed, meltdown: safety plan, co-regulate"
+  ],
+  exerciseTitle: "Family Temperature Check (Daily Practice)",
+  exerciseText: "Choose a consistent time — meals work well. Each family member shares their number (1–10) and one word for how they feel. No fixing, no judging — just 'Thank you for sharing. I love you.' If anyone is above 6, ask: 'What would help you feel one number lower?'",
+  affirmation: "Every feeling is valid. Every feeling is temporary. And I am safe enough to feel them all."
+},
+{
+  pageLabel: "Chapter 4",
+  kicker: "Part Two — Building Your Toolkit",
+  title: "Mental Health Tools That Actually Work",
+  quote: "The best tool is the one you will actually use. Forget perfect. Find what works for your real, messy, beautiful life.",
+  paragraphs: [
+    "These tools work in the middle of real life — in the school car park, in the bathroom with the door locked, in the three minutes between therapy sessions."
+  ],
+  listLabel: "Nine Tools for Real Life",
+  list: [
+    "The 5-5-5 Reset — breathe in for 5, hold for 5, out for 5. Repeat three times.",
+    "The Thought Redirect — notice the harsh thought, challenge it, redirect to something true and kind.",
+    "The Brain Dump — write for 5 minutes without stopping, no organizing, just get it out of your head.",
+    "The Body Scan — a two-minute pass from head to feet, releasing tension as you go.",
+    "The Anchor Statement — a short phrase you return to in hard moments.",
+    "The Micro-Joy Practice — three times a day, name one small good thing happening right now.",
+    "The Boundary Script — pre-written lines for unsolicited advice, guilt trips, and overcommitment.",
+    "The Gratitude Anchor — before bed, name three things that went well, no matter how small.",
+    "The 10-Minute Rule — when everything feels impossible, commit to just ten minutes of anything restorative."
+  ],
+  affirmation: "I do not need to fix everything today. I just need to keep loving. That is always enough."
+},
+{
+  pageLabel: "Chapter 5",
+  title: "Advanced Coping Strategies & Exercises",
+  quote: "Regulation is not about controlling your emotions. It is about not letting them control you — so you can pour your love where it matters most.",
+  listLabel: "Eight Deeper Practices",
+  list: [
+    "5-4-3-2-1 Sensory Grounding — name what you can see, touch, hear, smell, and taste.",
+    "Progressive Muscle Relaxation — tense and release each muscle group, head to toe.",
+    "The RAIN Technique — Recognize, Allow, Investigate, Nurture.",
+    "Emotional Release Writing — five to ten minutes, no filter, then keep it or destroy it.",
+    "The Container Visualization — place a heavy emotion in an imagined container until you're ready.",
+    "Loving-Kindness Practice — extend the wish for safety and peace to yourself and your family.",
+    "The Worry Release Jar — write worries down, revisit weekly to see how many never came true.",
+    "The Energy Audit — track what drains you versus what brings joy, and let it guide your boundaries."
+  ],
+  affirmation: "I am learning to hold space for my own pain while still holding my child with love. That is the bravest thing a person can do."
+},
+{
+  pageLabel: "Chapter 6",
+  title: "Family Exercises — Growing Stronger Together",
+  quote: "A family that learns to feel together learns to heal together. And a family that heals together becomes unbreakable.",
+  paragraphs: [
+    "These exercises are autism-friendly — sensory-aware, adaptable, pressure-free. Not every one will work for every family. The goal is not perfection. The goal is togetherness."
+  ],
+  listLabel: "Eight Ways to Build Togetherness",
+  list: [
+    "The Weather Report — each person shares their emotional 'weather' at a consistent daily time.",
+    "Build a Calm-Down Kit Together — sensory, visual, auditory, and comfort items chosen by everyone.",
+    "The Appreciation Circle — once a week, share one thing you appreciate about another family member.",
+    "Sensory-Friendly Movement — animal walks, dance parties, heavy work, or a shared nature walk.",
+    "Rose, Thorn, and Bud — an end-of-day ritual: one good thing, one hard thing, one thing to look forward to.",
+    "The Regulation Stoplight — green, yellow, red — used by the whole family, including parents.",
+    "The Love Jar — write down moments of love or joy all week, read them together on Sunday.",
+    "The Togetherness Timeline — a visible timeline marking the hard moments and the beautiful ones."
+  ],
+  affirmation: "Our family is not perfect. Our family is real. And real families love each other through everything."
+},
+{
+  pageLabel: "Chapter 7",
+  kicker: "Part Three — Getting Professional Support",
+  title: "Understanding Counseling & Therapy",
+  quote: "You do not have to walk this road alone. There are people trained to walk it with you — and finding them is an act of love, not defeat.",
+  listLabel: "Types of Therapy That Help Parents",
+  list: [
+    "CBT — helps change negative thought patterns; good for anxiety, depression, overwhelm.",
+    "EMDR — processes traumatic memories from crisis moments or diagnosis grief.",
+    "DBT — teaches emotional regulation for intense emotions and burnout.",
+    "Talk Therapy — a safe space to process grief, identity loss, and loneliness.",
+    "Group Therapy — connection with others who understand.",
+    "Couples Counseling — strengthens partnership under pressure.",
+    "Family Systems Therapy — treats the whole family unit together."
+  ],
+  exerciseTitle: "Questions to Ask a Potential Therapist",
+  exerciseText: "Do you have experience with families affected by autism? What is your approach, explained simply? Do you offer sliding scale fees? How often would we meet? Can I contact you between sessions if I'm in crisis? Do you offer telehealth? What is your experience with caregiver burnout and grief?",
+  affirmation: "Getting help is not giving up. Getting help is giving my family the strongest version of me."
+},
+{
+  pageLabel: "Chapter 8",
+  title: "Family Counseling — Healing as a Unit",
+  quote: "You cannot heal in isolation what was built in connection. Families heal together.",
+  paragraphs: [
+    "Family counseling is not about blame. It's about building a shared language, understanding each member's needs, and learning to move through hard moments as a team — including your child with autism, whose perspective is honored even through non-verbal communication."
+  ],
+  listLabel: "Supporting Siblings",
+  list: [
+    "Schedule dedicated one-on-one time with each sibling regularly.",
+    "Validate their feelings — it's okay to feel frustrated AND love your sibling.",
+    "Explain autism in age-appropriate language — they need understanding too.",
+    "Let them have their own identity beyond being 'the sibling.'",
+    "Consider a siblings support group (Sibshops is well known).",
+    "Ask them directly: 'What do you need from me right now?'"
+  ],
+  affirmation: "My family does not have to be perfect to be beautiful. We are learning, growing, and loving — and that is everything."
+},
+{
+  pageLabel: "Chapter 9",
+  title: "Mental Health Conditions Parents Should Know",
+  quote: "Knowledge is not just power. Knowledge is protection. When you understand what you are feeling, you can finally do something about it.",
+  paragraphs: [
+    "This chapter isn't meant to diagnose you — it's meant to help you recognize when what you're experiencing goes beyond ordinary stress and may need professional attention."
+  ],
+  listLabel: "Red Flags That Say: Please Get Support",
+  list: [
+    "You've felt hopeless or numb for more than two weeks.",
+    "You're using alcohol, food, or other substances to cope.",
+    "You have thoughts of harming yourself or not wanting to be here.",
+    "You can't sleep even when you have the chance.",
+    "You've lost interest in things you used to love.",
+    "You're having panic attacks or intense physical anxiety symptoms.",
+    "Your child's needs feel impossible to meet, not just hard."
+  ],
+  exerciseTitle: "If Any of This Resonates",
+  exerciseText: "Please reach out. Call or text 988, text HOME to 741741, or talk to someone you trust. You matter. Your child needs you here.",
+  affirmation: "Asking for help does not mean I am broken. It means I am brave enough to choose healing."
+},
+{
+  pageLabel: "Chapter 10",
+  kicker: "Part Four — Love, Togetherness & Sustainability",
+  title: "Putting Your Child/Children First with Love",
+  quote: "Putting your child/children first does not mean putting yourself last. It means making sure you are strong enough to give them everything they deserve.",
+  listLabel: "Love in Action",
+  list: [
+    "Learning their language — understanding how they communicate, not just how you want them to.",
+    "Advocating fiercely — in schools, doctors' offices, and a world not built for them.",
+    "Celebrating their way — honoring their unique progress, not neurotypical milestones.",
+    "Creating safety — a home where they can be fully themselves without judgment.",
+    "Modeling regulation — showing them big feelings are manageable, because they watch you manage yours.",
+    "Taking care of yourself — so you have the energy and presence to do all of the above."
+  ],
+  affirmation: "I love my child by showing up. I love myself by filling up. Both are necessary. Both are sacred."
+},
+{
+  pageLabel: "Chapter 11",
+  title: "Knowing When to Take a Break",
+  quote: "Rest is not a reward for being done. It is a requirement for keeping going — and your child needs you to keep going.",
+  listLabel: "Three Levels of Breaks — Every Level Is Valid",
+  list: [
+    "Micro-breaks (2–5 min) — step outside, lock the bathroom door and breathe, one song in headphones.",
+    "Mini-breaks (30 min–2 hrs) — have someone watch your child, take a walk, sit in a coffee shop.",
+    "Restoration breaks (half day+) — respite care, a night away, a day with a friend. Maintenance, not luxury."
+  ],
+  exerciseTitle: "My Personal Break Plan",
+  exerciseText: "Fill this out while calm: your warning signs, your go-to micro-break, a person you can call, a backup plan, your 5-minute reset space, an activity that restores you, and the reason you give yourself permission to rest.",
+  affirmation: "I deserve rest not because I have earned it, but because I am human. And resting makes me a better parent."
+},
+{
+  pageLabel: "Chapter 12",
+  title: "Building Your Village",
+  quote: "You were never meant to do this alone. Let people in. Let love in.",
+  listLabel: "Scripts for Asking for Help",
+  list: [
+    "\"I am having a really hard week. Could you watch the kids for an hour?\"",
+    "\"I do not need advice. I just need someone to listen.\"",
+    "\"I am looking for parents who understand. Know any support groups?\"",
+    "\"I need to take a break before I break. Can you help?\""
+  ],
+  affirmation: "I do not have to carry this alone. Accepting help is an act of love for my whole family."
+},
+{
+  pageLabel: "Chapter 13",
+  title: "Self-Compassion, Marriage & Moving Forward",
+  quote: "Talk to yourself the way you talk to your child on their hardest day: with gentleness, patience, and unconditional love.",
+  listLabel: "The Three Pillars of Self-Compassion",
+  list: [
+    "Self-kindness — when you make a mistake, say 'I am learning' instead of 'I am failing.'",
+    "Common humanity — other parents struggle too. You are not the only one.",
+    "Mindfulness — 'I am having a hard moment' is different from 'I am a disaster.'"
+  ],
+  exerciseTitle: "Protecting Your Partnership",
+  exerciseText: "Schedule connection time, even 15 minutes after the kids sleep. Use 'I feel' statements instead of accusations. Be a team, not opponents — the challenge is autism, not each other. Divide the mental load intentionally. Seek couples counseling early, before crisis. Say thank you for the invisible work your partner does.",
+  affirmation: "You are not failing. You are fighting. And fighters get tired. That does not make them weak — it makes them warriors who love."
+},
+{
+  pageLabel: "Chapter 14",
+  kicker: "Part Five — Resources & References",
+  title: "Complete Mental Health Resource Guide",
+  quote: "Knowledge is the bridge between struggle and strength. These resources are here when you need them.",
+  listLabel: "Crisis Resources — Available 24/7",
+  list: [
+    "988 Suicide & Crisis Lifeline — call or text 988",
+    "Crisis Text Line — text HOME to 741741",
+    "SAMHSA Helpline — 1-800-662-4357",
+    "Autism Society Helpline — 1-800-328-8476",
+    "National Parent Helpline — 1-855-427-2736",
+    "Emergency — call 911"
+  ],
+  exerciseTitle: "Recommended Reading",
+  exerciseText: "Uniquely Human by Barry Prizant · The Reason I Jump by Naoki Higashida · Self-Compassion by Kristin Neff · The Explosive Child by Ross Greene · Burnout by Emily Nagoski · No Drama Discipline by Daniel Siegel · NeuroTribes by Steve Silberman.",
+  affirmation: "I am not alone. There are people, organizations, and communities ready to walk beside me. All I have to do is reach out."
+}
+];
+
+// ---------- 40-DAY JOURNAL ----------
+const journalQuotes = [
+"You are braver than you believe and stronger than you know.",
+"Progress, not perfection. Every small step counts.",
+"Your child/children are lucky to have you.",
+"Difficult roads lead to beautiful destinations.",
+"You are allowed to rest. The world will wait.",
+"One day at a time. One breath at a time. You are doing it.",
+"The fact that you try every day means you have not given up.",
+"Some days the bravest thing is simply to keep going.",
+"Your love is your child/children's greatest gift.",
+"Storms do not last forever. Neither will this hard season.",
+"You are writing a story of resilience. Keep turning the page.",
+"What feels impossible today may be your testimony tomorrow.",
+"You are not behind. You are exactly where you need to be.",
+"Grace is giving yourself the kindness you give everyone else.",
+"The world needs parents like you. Never forget that.",
+"Love is the answer to every question this journey asks.",
+"Your family's story is still being written. The best chapters are ahead.",
+"You are not alone. You were never alone.",
+"Breathe. You are doing better than you think.",
+"Every act of love matters. Every single one."
+];
+// quotes cycle twice across 40 days (1-20, then repeat 21-40)
+
+const journalPrompts = [
+"What emotion showed up the most for you today?",
+"Write about a moment today that made you smile.",
+"What is one thing your child/children did that surprised you?",
+"Where did you carry tension in your body today?",
+"What is one boundary you wish you had set today?",
+"Describe a time you felt truly seen or heard recently.",
+"What would you say to a friend going through what you are?",
+"What are you learning alongside your child/children right now?",
+"What does real rest look like for you?",
+"What part of today felt the heaviest? Can you release it now?",
+"Name three sounds that bring you comfort.",
+"What did you do today that took courage?",
+"If you had one uninterrupted hour, how would you spend it?",
+"Write about a small victory your child/children had recently.",
+"What emotion are you avoiding right now? Why?",
+"Describe your ideal peaceful morning in detail.",
+"What is something kind someone did for you recently?",
+"Write a short letter to yourself one year from now.",
+"What support do you wish you had but have not asked for?",
+"How have you grown as a parent in the last six months?",
+"What misconception about your family do you wish people understood?",
+"Write about a sensory experience that grounds you.",
+"When did you last laugh really hard? What happened?",
+"What family routine means the most to you?",
+"If your stress had a colour, what would it be and why?",
+"What do you need to forgive yourself for?",
+"Write about someone who truly understands your journey.",
+"What does your child/children teach you about patience?",
+"Describe a place where you feel completely safe.",
+"What would you do differently if guilt did not exist?",
+"What small change could make mornings easier?",
+"Write about a moment of connection with your child/children.",
+"How do you know when you are reaching your limit?",
+"Write an affirmation you need. Write it three times.",
+"What is the best advice you have ever received?",
+"What have you let go of that set you free?",
+"What does your child/children's joy look like? Describe it.",
+"What boundary did you successfully hold this week?",
+"What do you need most from yourself right now?",
+"Write your hopes for the next chapter of your life."
+];
+
+const gratitudeLabels = [
+"What are 3 things you are grateful for today?",
+"Name 3 people who support your family.",
+"What are 3 small joys you noticed today?",
+"List 3 things your child/children bring to your life.",
+"What are 3 comforts in your home?"
+];
+
+const emotions = ["Calm","Happy","Tired","Anxious","Sad","Overwhelmed","Hopeful"];
+
+const journalDays = [];
+for (let i = 0; i < 40; i++) {
+  journalDays.push({
+    day: i + 1,
+    quote: journalQuotes[i % 20],
+    prompt: journalPrompts[i],
+    gratitude: gratitudeLabels[i % 5]
+  });
+}
+
+// ---------- STATE ----------
+// mode: 'chapter' or 'journal'
+let mode = 'chapter';
+let cIndex = 0;
+let jIndex = 0;
+
+const coverPage = document.getElementById('coverPage');
+const chapterPage = document.getElementById('chapterPage');
+const journalPage = document.getElementById('journalPage');
+
+// chapter elements
+const chapterPageLabel = document.getElementById('chapterPageLabel');
+const chapterKicker = document.getElementById('chapterKicker');
+const chapterTitle = document.getElementById('chapterTitle');
+const chapterQuote = document.getElementById('chapterQuote');
+const chapterParagraphs = document.getElementById('chapterParagraphs');
+const chapterListLabel = document.getElementById('chapterListLabel');
+const chapterList = document.getElementById('chapterList');
+const chapterExerciseBox = document.getElementById('chapterExerciseBox');
+const chapterExerciseTitle = document.getElementById('chapterExerciseTitle');
+const chapterExerciseText = document.getElementById('chapterExerciseText');
+const chapterAffirmation = document.getElementById('chapterAffirmation');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progressLabel = document.getElementById('progressLabel');
+const jumpSelect = document.getElementById('jumpSelect');
+
+// journal elements
+const journalDayLabel = document.getElementById('journalDayLabel');
+const journalQuote = document.getElementById('journalQuote');
+const emotionRow = document.getElementById('emotionRow');
+const journalPromptLabel = document.getElementById('journalPromptLabel');
+const gratitudeLabel = document.getElementById('gratitudeLabel');
+const jPrevBtn = document.getElementById('jPrevBtn');
+const jNextBtn = document.getElementById('jNextBtn');
+const jProgressLabel = document.getElementById('jProgressLabel');
+const jJumpSelect = document.getElementById('jJumpSelect');
+
+function renderChapter() {
+  const c = chapters[cIndex];
+  chapterPageLabel.textContent = c.pageLabel || '';
+  if (c.kicker) { chapterKicker.textContent = c.kicker; chapterKicker.classList.remove('hidden'); }
+  else { chapterKicker.classList.add('hidden'); }
+  chapterTitle.textContent = c.title;
+  if (c.quote) { chapterQuote.textContent = "\u201C" + c.quote + "\u201D"; chapterQuote.classList.remove('hidden'); }
+  else { chapterQuote.classList.add('hidden'); }
+  chapterParagraphs.innerHTML = '';
+  (c.paragraphs || []).forEach(t => {
+    const p = document.createElement('p');
+    p.textContent = t;
+    chapterParagraphs.appendChild(p);
+  });
+  if (c.list && c.list.length) {
+    chapterListLabel.textContent = c.listLabel || '';
+    chapterListLabel.classList.remove('hidden');
+    chapterList.innerHTML = '';
+    c.list.forEach(t => {
+      const li = document.createElement('li');
+      li.textContent = t;
+      chapterList.appendChild(li);
+    });
+  } else {
+    chapterListLabel.classList.add('hidden');
+    chapterList.innerHTML = '';
+  }
+  if (c.exerciseTitle) {
+    chapterExerciseBox.classList.remove('hidden');
+    chapterExerciseTitle.textContent = c.exerciseTitle;
+    chapterExerciseText.textContent = c.exerciseText;
+  } else {
+    chapterExerciseBox.classList.add('hidden');
+  }
+  if (c.affirmation) {
+    chapterAffirmation.classList.remove('hidden');
+    chapterAffirmation.textContent = "\u2605 " + c.affirmation;
+  } else {
+    chapterAffirmation.classList.add('hidden');
+  }
+  progressLabel.textContent = (cIndex + 1) + " / " + (chapters.length + 40);
+  prevBtn.disabled = cIndex === 0;
+  nextBtn.disabled = false;
+  jumpSelect.value = cIndex;
+  chapterPage.scrollTop = 0;
+}
+
+function renderJournal() {
+  const d = journalDays[jIndex];
+  journalDayLabel.textContent = "Day " + d.day + " of 40";
+  journalQuote.textContent = "\u201C" + d.quote + "\u201D";
+  journalPromptLabel.textContent = "Today's Prompt: " + d.prompt;
+  gratitudeLabel.textContent = "Gratitude: " + d.gratitude;
+  emotionRow.innerHTML = '';
+  emotions.forEach(e => {
+    const chip = document.createElement('div');
+    chip.className = 'emotion-chip';
+    chip.textContent = e;
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    emotionRow.appendChild(chip);
+  });
+  jProgressLabel.textContent = (chapters.length + jIndex + 1) + " / " + (chapters.length + 40);
+  jPrevBtn.disabled = false;
+  jNextBtn.disabled = jIndex === journalDays.length - 1;
+  jJumpSelect.value = jIndex;
+  journalPage.scrollTop = 0;
+}
+
+function showChapterView() {
+  mode = 'chapter';
+  coverPage.classList.add('hidden');
+  journalPage.classList.add('hidden');
+  chapterPage.classList.remove('hidden');
+  renderChapter();
+}
+function showJournalView() {
+  mode = 'journal';
+  coverPage.classList.add('hidden');
+  chapterPage.classList.add('hidden');
+  journalPage.classList.remove('hidden');
+  renderJournal();
+}
+
+// populate jump selects
+chapters.forEach((c, i) => {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = (c.pageLabel || ('Page ' + (i+1))) + " — " + c.title;
+  jumpSelect.appendChild(opt);
+});
+journalDays.forEach((d, i) => {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = "Day " + d.day + " of 40";
+  jJumpSelect.appendChild(opt);
+});
+
+document.getElementById('beginBtn').addEventListener('click', showChapterView);
+
+prevBtn.addEventListener('click', () => {
+  if (cIndex > 0) { cIndex--; renderChapter(); }
+});
+nextBtn.addEventListener('click', () => {
+  if (cIndex < chapters.length - 1) { cIndex++; renderChapter(); }
+  else { showJournalView(); jIndex = 0; renderJournal(); }
+});
+jumpSelect.addEventListener('change', () => { cIndex = parseInt(jumpSelect.value); renderChapter(); });
+
+jPrevBtn.addEventListener('click', () => {
+  if (jIndex > 0) { jIndex--; renderJournal(); }
+  else { showChapterView(); cIndex = chapters.length - 1; renderChapter(); }
+});
+jNextBtn.addEventListener('click', () => {
+  if (jIndex < journalDays.length - 1) { jIndex++; renderJournal(); }
+});
+jJumpSelect.addEventListener('change', () => { jIndex = parseInt(jJumpSelect.value); renderJournal(); });
+
+</script>
+
+</body>
+</html>
